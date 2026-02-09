@@ -129,7 +129,7 @@ async def cmd_start(message: Message, command: CommandObject):
 
     welcome_text = (
         f"👋 Привет, <b>{message.from_user.first_name}</b>!\n\n"
-        f"Я <b>SubKiller</b> 🗡 — убийца забытых подписок.\n\n"
+        f"Я <b>SubRadar</b> 🗡 — трекер твоих подписок.\n\n"
         f"Средний человек тратит <b>15 000 — 50 000₽ в год</b> "
         f"на подписки, которыми не пользуется.\n\n"
         f"Я помогу тебе:\n"
@@ -287,7 +287,7 @@ async def cmd_stats(message: Message):
         total_active = active_subs_count.scalar()
 
     text = (
-        "📊 <b>Статистика SubKiller</b>\n\n"
+        "📊 <b>Статистика SubRadar</b>\n\n"
         f"👥 Пользователей: <b>{total_users}</b>\n"
         f"⭐ Premium: <b>{total_premium}</b>\n"
         f"📋 Всего подписок: <b>{total_subs}</b>\n"
@@ -295,5 +295,6 @@ async def cmd_stats(message: Message):
         f"💰 Всего сэкономлено: "
         f"<b>{format_money(stats.total_saved if stats else 0)}</b>\n"
     )
+
 
     await message.answer(text)
