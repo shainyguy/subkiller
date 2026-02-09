@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>SubKiller</title>
+    <script src="https://telegram.org/js/telegram-web-app.js">
+    </script>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <span class="logo">🗡</span>
+                <h1>SubKiller</h1>
+            </div>
+            <div class="header-right">
+                <span id="premium-badge" class="badge hidden">
+                    ⭐ Premium
+                </span>
+            </div>
+        </header>
+
+        <!-- Loading -->
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Загрузка...</p>
+        </div>
+
+        <!-- Pain Counter Banner -->
+        <div id="pain-banner" class="pain-banner hidden">
+            <div class="pain-label">Деньги утекают прямо сейчас</div>
+            <div class="pain-amount" id="pain-amount">0.00₽</div>
+            <div class="pain-sublabel" id="pain-today">
+                Сегодня: 0₽
+            </div>
+        </div>
+
+        <!-- Health Score -->
+        <div id="health-card" class="card health-card hidden">
+            <div class="health-score-container">
+                <div class="health-score" id="health-score">0</div>
+                <div class="health-label">Здоровье подписок</div>
+                <div class="health-bar">
+                    <div class="health-bar-fill"
+                         id="health-bar-fill"></div>
+                </div>
+            </div>
+            <div class="health-stats">
+                <div class="stat">
+                    <span class="stat-value"
+                          id="total-monthly">0₽</span>
+                    <span class="stat-label">в месяц</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value stat-red"
+                          id="wasted-monthly">0₽</span>
+                    <span class="stat-label">впустую</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value stat-green"
+                          id="saved-monthly">0₽</span>
+                    <span class="stat-label">сэкономлено</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="tabs" id="tabs">
+            <button class="tab active"
+                    data-tab="subscriptions">
+                📋 Подписки
+            </button>
+            <button class="tab" data-tab="add">
+                ➕ Добавить
+            </button>
+            <button class="tab" data-tab="analytics">
+                📊 Аналитика
+            </button>
+            <button class="tab" data-tab="achievements">
+                🏆 Ачивки
+            </button>
+        </nav>
+
+        <!-- Subscriptions Tab -->
+        <div id="tab-subscriptions" class="tab-content active">
+            <div id="subs-list" class="subs-list">
+                <p class="empty-state">
+                    Нет подписок. Добавь первую!
+                </p>
+            </div>
+        </div>
+
+        <!-- Add Tab -->
+        <div id="tab-add" class="tab-content">
+            <!-- Popular Subs -->
+            <h3 class="section-title">Популярные подписки</h3>
+            <div id="popular-subs" class="popular-grid"></div>
+
+            <h3 class="section-title">Или введи вручную</h3>
+            <form id="add-form" class="add-form">
+                <div class="form-group">
+                    <label>Название</label>
+                    <input type="text" id="sub-name"
+                           placeholder="Netflix, Spotify..."
+                           required>
+                </div>
+                <div class="form-group">
+                    <label>Цена (₽)</label>
+                    <input type="number" id="sub-price"
+                           placeholder="499" required
+                           min="1" step="1">
+                </div>
+                <div class="form-group">
+                    <label>Период</label>
+                    <select id="sub-cycle">
+                        <option value="monthly">Ежемесячно</option>
+                        <option value="weekly">Еженедельно</option>
+                        <option value="quarterly">
+                            Раз в 3 месяца
+                        </option>
+                        <option value="semi_annual">
+                            Раз в полгода
+                        </option>
+                        <option value="annual">Ежегодно</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Категория</label>
+                    <select id="sub-category"></select>
+                </div>
+                <div class="form-group">
+                    <label>Дата следующего списания</label>
+                    <input type="date" id="sub-date">
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="sub-trial">
+                    <label for="sub-trial">
+                        Это пробный период (trial)
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    ➕ Добавить подписку
+                </button>
+            </form>
+        </div>
+
+        <!-- Analytics Tab -->
+        <div id="tab-analytics" class="tab-content">
+            <div id="analytics-content">
+                <!-- Investments -->
+                <div class="card" id="invest-card">
+                    <h3>🎰 Если бы ты инвестировал</h3>
+                    <div class="invest-grid">
+                        <div class="invest-item">
+                            <span class="invest-period">
+                                5 лет (S&P500)
+                            </span>
+                            <span class="invest-amount"
+                                  id="invest-5y">0₽</span>
+                        </div>
+                        <div class="invest-item">
+                            <span class="invest-period">
+                                10 лет (S&P500)
+                            </span>
+                            <span class="invest-amount"
+                                  id="invest-10y">0₽</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categories -->
+                <div class="card" id="categories-card">
+                    <h3>📁 По категориям</h3>
+                    <div id="categories-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Achievements Tab -->
+        <div id="tab-achievements" class="tab-content">
+            <div id="earned-achievements"></div>
+            <h3 class="section-title" id="locked-title"
+                style="display:none">
+                🔒 Ещё можно получить
+            </h3>
+            <div id="locked-achievements"></div>
+        </div>
+
+        <!-- Subscription Detail Modal -->
+        <div id="sub-modal" class="modal hidden">
+            <div class="modal-backdrop"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modal-title"></h3>
+                    <button class="modal-close"
+                            onclick="closeModal()">✕</button>
+                </div>
+                <div id="modal-body"></div>
+                <div class="modal-actions">
+                    <select id="modal-usage"
+                            class="usage-select">
+                        <option value="high">
+                            🟢 Активно использую
+                        </option>
+                        <option value="medium">
+                            🟡 Иногда
+                        </option>
+                        <option value="low">
+                            🔴 Редко
+                        </option>
+                        <option value="none">
+                            ⚫ Не использую
+                        </option>
+                    </select>
+                    <button class="btn btn-save"
+                            id="btn-save-usage">
+                        💾 Сохранить
+                    </button>
+                    <button class="btn btn-danger"
+                            id="btn-cancel-sub">
+                        ❌ Отменить подписку
+                    </button>
+                    <button class="btn btn-alt"
+                            id="btn-find-alt">
+                        💣 Альтернативы
+                    </button>
+                </div>
+                <!-- Alternatives section -->
+                <div id="alternatives-section" class="hidden">
+                    <h4>💣 Альтернативы</h4>
+                    <div id="alternatives-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast -->
+        <div id="toast" class="toast hidden"></div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
