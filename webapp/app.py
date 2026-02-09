@@ -47,7 +47,7 @@ from bot.config import (
 logger = logging.getLogger(__name__)
 
 app = FastAPI(
-    title="SubKiller Mini App",
+    title="SubRadar Mini App",
     version="1.0.0",
 )
 
@@ -785,7 +785,7 @@ async def payment_success(
         <meta charset="UTF-8">
         <meta name="viewport"
               content="width=device-width, initial-scale=1.0">
-        <title>Оплата успешна — SubKiller</title>
+        <title>Оплата успешна — SubRadar</title>
         <script src="https://telegram.org/js/telegram-web-app.js">
         </script>
         <style>
@@ -857,4 +857,5 @@ async def payment_success(
     </body>
     </html>
     """
+
     return HTMLResponse(content=html)
