@@ -69,7 +69,13 @@ class WebAppConfig:
     def __post_init__(self):
         self.url = os.getenv("WEBAPP_URL", "https://your-app.railway.app")
         self.host = os.getenv("WEBAPP_HOST", "0.0.0.0")
-        self.port = int(os.getenv("WEBAPP_PORT", "8080"))
+        
+        # Railway ставит PORT автоматически
+        port_str = os.getenv("PORT", "") or os.getenv("WEBAPP_PORT", "") or "8080"
+        try:
+            self.port = int(port_str)
+        except (ValueError, TypeError):
+            self.port = 8080
 
 
 @dataclass
@@ -382,6 +388,7 @@ class Config:
     db: DatabaseConfig = field(default_factory=DatabaseConfig)
     webapp: WebAppConfig = field(default_factory=WebAppConfig)
     premium: PremiumConfig = field(default_factory=PremiumConfig)
+
 
 
 config = Config()
