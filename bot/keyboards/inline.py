@@ -56,7 +56,7 @@ def main_menu_keyboard(
     )
     builder.row(
         InlineKeyboardButton(
-            text="🏆 Рейтинг экономии",
+            text="🏆 Рейтинг",
             callback_data="leaderboard"
         ),
         InlineKeyboardButton(
@@ -412,4 +412,5 @@ def pagination_keyboard(
 
     builder.row(*buttons)
     return builder.as_markup()
+
 
