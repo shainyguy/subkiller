@@ -12,7 +12,7 @@ def main_reply_keyboard(
     buttons = [
         [
             KeyboardButton(text="📋 Подписки"),
-            KeyboardButton(text="💀 Счётчик боли"),
+            KeyboardButton(text="💀 Счётчик потерь"),
         ],
         [
             KeyboardButton(text="➕ Добавить"),
@@ -36,4 +36,5 @@ def main_reply_keyboard(
         keyboard=buttons,
         resize_keyboard=True,
         is_persistent=True,
+
     )
