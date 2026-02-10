@@ -26,31 +26,31 @@ def main_menu_keyboard(
     )
     builder.row(
         InlineKeyboardButton(
-            text="💀 Счётчик боли",
+            text="💀 Счётчик потерь",
             callback_data="pain_counter"
         ),
         InlineKeyboardButton(
-            text="📊 Дашборд здоровья",
+            text="📊 Отчёт",
             callback_data="health_dashboard"
         ),
     )
     builder.row(
         InlineKeyboardButton(
-            text="🔮 Предсказатель утечки",
+            text="🔮 Прогноз трат",
             callback_data="predictions"
         ),
         InlineKeyboardButton(
-            text="🎰 Инвестиции вместо подписок",
+            text="🎰 Упущенная выгода",
             callback_data="investments"
         ),
     )
     builder.row(
         InlineKeyboardButton(
-            text="🧬 ДНК профиль",
+            text="🧬 Мой профиль",
             callback_data="dna_profile"
         ),
         InlineKeyboardButton(
-            text="💣 Калькулятор замен",
+            text="💣 Альтернативы",
             callback_data="alternatives"
         ),
     )
@@ -60,7 +60,7 @@ def main_menu_keyboard(
             callback_data="leaderboard"
         ),
         InlineKeyboardButton(
-            text="🤖 Автоснайпер Trial",
+            text="🤖 Пробные периоды",
             callback_data="trial_sniper"
         ),
     )
@@ -412,3 +412,4 @@ def pagination_keyboard(
 
     builder.row(*buttons)
     return builder.as_markup()
+
