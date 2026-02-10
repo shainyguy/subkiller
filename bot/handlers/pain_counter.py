@@ -156,7 +156,7 @@ async def show_pain_counter(event: Message | CallbackQuery):
 
     # Основной текст
     text = (
-        f"💀 <b>СЧЁТЧИК БОЛИ</b>\n\n"
+        f"💀 <b>СЧЁТЧИК ПОТЕРЬ</b>\n\n"
         f"⏱ Пока ты читаешь это сообщение,\n"
         f"у тебя утекло: <b>{data['per_minute'] * 2:.2f}₽</b>\n\n"
         f"━━━━━━━━━━━━━━━━━━\n\n"
@@ -251,4 +251,5 @@ async def show_pain_counter(event: Message | CallbackQuery):
         )
         await event.answer()
     else:
+
         await event.answer(text, reply_markup=builder.as_markup())
